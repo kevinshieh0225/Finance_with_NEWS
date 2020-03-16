@@ -18,7 +18,7 @@ def Scrap(website):
 
 if __name__ == '__main__':
     Input = []
-    Input.append['標題','時間','內文']
+    Input.append([['標題','時間','內文']])
     for page in range(1,200):#最多5044
         soup  = Scrap('https://blog.moneydj.com/news/page/'+str(page)+'/')
         getAllNew = soup.find_all('article')#瀏覽：article是內文每條新聞，輸出為list
