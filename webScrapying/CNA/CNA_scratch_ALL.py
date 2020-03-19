@@ -16,7 +16,7 @@ def DoRequest(website):
     headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
 
     try:
-        urlopen(website)
+        urlopen(website)#若網站為錯誤，即回傳'0'
     except:
         return '0'
     else:
@@ -29,7 +29,7 @@ def DoRequest(website):
 def news_for_a_day(website_to_day):
     Input = []
     reset = 0 # 0 是沒吃到，1 是吃到
-    counts = 0
+    counts = 0 
     for i in range(800):
         if i < 10:
             soup = DoRequest(website_to_day+'000'+str(i)+'.aspx')
@@ -37,15 +37,17 @@ def news_for_a_day(website_to_day):
             soup = DoRequest(website_to_day+'00'+str(i)+'.aspx')
         else:
             soup = DoRequest(website_to_day+'0'+str(i)+'.aspx')
-        if soup == '0':
+        #這是輸入網址設定
+
+        if soup == '0':#若網站不存在
             if reset == 0:
-                counts += 1
+                counts += 1#連續缺文章
             else:
-                counts,reset = 1,0
-            if counts > 15:
+                counts,reset = 1,0#首次缺文章
+            if counts > 40:
                 print('斷在第'+str(i)+'個新聞')
                 break
-            continue
+            continue # 若連續數篇皆無資料，預設該天新聞稿已盡，則跳出輪迴
         counts,reset = 0,1
         #print(str(i))
         arcticle = soup.find('article',{'class':'article'})
@@ -66,8 +68,8 @@ def news_for_a_day(website_to_day):
 
 
 if __name__ == '__main__':
-    start_date = date(2020, 1, 1)
-    end_date = date(2020, 3, 17)
+    start_date = date(2017, 1, 2)
+    end_date = date(2020, 1, 1)
     for single_date in daterange(start_date, end_date):
         print(single_date.strftime("%Y%m%d"))
         Input = []
