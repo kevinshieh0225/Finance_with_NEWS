@@ -68,8 +68,8 @@ def news_for_a_day(website_to_day):
 
 
 if __name__ == '__main__':
-    start_date = date(2017, 1, 2)
-    end_date = date(2020, 1, 1)
+    start_date = date(2014, 12,30)
+    end_date = date(2015, 1, 1)
     for single_date in daterange(start_date, end_date):
         print(single_date.strftime("%Y%m%d"))
         Input = []
